@@ -1,0 +1,48 @@
+<section class="idea-detail" *ngIf="idea; else notFound">
+  <div class="breadcrumbs">
+    <a routerLink="/">掲示板に戻る</a>
+    <span>›</span>
+    <span>{{ idea.title }}</span>
+  </div>
+
+  <div class="header">
+    <div>
+      <p class="eyebrow">idea #{{ idea.id }}</p>
+      <h1>{{ idea.title }}</h1>
+      <p class="meta">
+        <span class="pill">{{ idea.category }}</span>
+        <span class="stage" [attr.data-stage]="idea.stage">{{ stageLabel(idea.stage) }}</span>
+        <span class="date">{{ idea.postedOn }} / 投稿者 {{ idea.author }}</span>
+      </p>
+    </div>
+    <a class="cta" routerLink="/">ほかのアイデアを見る</a>
+  </div>
+
+  <div class="body">
+    <div class="card">
+      <h2>アイデア概要</h2>
+      <p>{{ idea.summary }}</p>
+    </div>
+    <div class="card">
+      <h3>タグ</h3>
+      <div class="tags">
+        <span class="tag" *ngFor="let tag of idea.tags">#{{ tag }}</span>
+      </div>
+    </div>
+    <div class="card">
+      <h3>次のステップ</h3>
+      <ul>
+        <li>課題の深堀りやユースケースの洗い出し</li>
+        <li>簡易プロトの実装とフィードバック収集</li>
+        <li>興味があれば作者への連絡・共同開発</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<ng-template #notFound>
+  <div class="not-found">
+    <p>アイデアが見つかりませんでした。</p>
+    <a routerLink="/" class="cta">掲示板に戻る</a>
+  </div>
+</ng-template>
