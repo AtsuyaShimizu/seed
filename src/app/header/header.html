@@ -1,1 +1,16 @@
-<p>header works!</p>
+<header class="app-header">
+  <div class="brand" routerLink="/">
+    <div class="logo">s</div>
+    <div>
+      <p class="app-name">seed</p>
+      <p class="tagline">ideas for builders</p>
+    </div>
+  </div>
+  <nav>
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">掲示板</a>
+  </nav>
+  <div class="cta-group">
+    <button type="button" class="ghost">ログイン</button>
+    <button type="button" class="primary">アイデアを投稿</button>
+  </div>
+</header>

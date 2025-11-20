@@ -1,1 +1,66 @@
-<p>board works!</p>
+<section class="board">
+  <div class="hero">
+    <div>
+      <p class="eyebrow">seed board</p>
+      <h1>アイデアの種を、ここから育てよう</h1>
+      <p class="lead">
+        GoogleやAppleのような清潔感と、ChatGPTのミニマルな余白感を意識したシンプルな掲示板です。
+        エンジニアが気になるアイデアを素早く見つけて、次の挑戦につなげましょう。
+      </p>
+    </div>
+    <div class="search-panel">
+      <label class="label" for="search">アイデアを検索</label>
+      <div class="search-box">
+        <span class="icon">🔍</span>
+        <input
+          id="search"
+          type="search"
+          [(ngModel)]="searchTerm"
+          (ngModelChange)="onSearchChange()"
+          placeholder="キーワード、カテゴリ、タグで探す"
+        />
+      </div>
+      <p class="hint">シードが{{ filteredIdeas.length }}件見つかりました。20件ずつ表示しています。</p>
+    </div>
+  </div>
+
+  <div class="grid" role="list">
+    <article class="idea-card" *ngFor="let idea of displayedIdeas; trackBy: trackById" role="listitem">
+      <div class="idea-card__meta">
+        <span class="pill">{{ idea.category }}</span>
+        <span class="stage" [attr.data-stage]="idea.stage">{{ stageLabel(idea.stage) }}</span>
+      </div>
+      <h2>
+        <a [routerLink]="['/ideas', idea.id]" class="title-link">{{ idea.title }}</a>
+      </h2>
+      <p class="summary">{{ idea.summary }}</p>
+      <div class="tags">
+        <span class="tag" *ngFor="let tag of idea.tags">#{{ tag }}</span>
+      </div>
+      <div class="footer">
+        <div class="author">
+          <span class="avatar">{{ idea.author[0] | uppercase }}</span>
+          <div>
+            <p class="name">{{ idea.author }}</p>
+            <p class="date">{{ idea.postedOn }} 投稿</p>
+          </div>
+        </div>
+        <a class="link" [routerLink]="['/ideas', idea.id]">詳細を見る →</a>
+      </div>
+    </article>
+  </div>
+
+  <div class="pagination" aria-label="アイデアのページ切り替え">
+    <button type="button" (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">
+      ← 前へ
+    </button>
+    <span>Page {{ currentPage }} / {{ totalPages }}</span>
+    <button
+      type="button"
+      (click)="goToPage(currentPage + 1)"
+      [disabled]="currentPage === totalPages"
+    >
+      次へ →
+    </button>
+  </div>
+</section>
